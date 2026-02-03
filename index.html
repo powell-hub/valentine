@@ -26,7 +26,7 @@ section {
   background: white;
   padding: 30px;
   border-radius: 25px;
-  max-width: 850px;
+  max-width: 900px;
   width: 100%;
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
@@ -40,15 +40,24 @@ button {
   border-radius: 20px;
   font-size: 18px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: scale(1.05);
+.hidden { display: none; }
+
+/* MENU BOXES */
+.menu {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap: 20px;
+  margin-top: 20px;
 }
 
-.hidden {
-  display: none;
+.menuBox {
+  background: #ffe0ed;
+  padding: 30px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 18px;
 }
 
 /* GALLERY */
@@ -63,29 +72,12 @@ button:hover {
   border-radius: 15px;
 }
 
-/* VOUCHERS */
-.vouchers {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.voucher {
-  background: #ffe0ed;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 15px;
-  width: 150px;
-  cursor: pointer;
-}
-
 /* HEARTS */
 .heart {
   position: fixed;
   bottom: -20px;
   font-size: 20px;
   animation: floatUp 6s linear infinite;
-  color: #ff4d88;
 }
 
 @keyframes floatUp {
@@ -97,12 +89,11 @@ button:hover {
 
 <body>
 
-<!-- MUSIC -->
 <audio autoplay loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
 
-<!-- QUESTION PAGE -->
+<!-- QUESTION -->
 <section id="questionPage">
   <div class="card">
     <h1>💖 Hi Ms Bunny 💖</h1>
@@ -112,29 +103,70 @@ button:hover {
   </div>
 </section>
 
-<!-- MAIN VALENTINE PAGE -->
-<section id="mainPage" class="hidden">
+<!-- MENU -->
+<section id="menuPage" class="hidden">
   <div class="card">
-    <h1>YAYYY 💕</h1>
-    <p>
-      This page is just a small way to show how special you are to me.
-      You make everything sweeter, softer, and happier 💗
-    </p>
+    <h1>Choose a gift 💗</h1>
+    <div class="menu">
+      <div class="menuBox" onclick="openPage('letter')">💌 A Letter</div>
+      <div class="menuBox" onclick="openPage('voucher')">🎁 Vouchers</div>
+      <div class="menuBox" onclick="openPage('photos')">📸 Our Memories</div>
+      <div class="menuBox" onclick="openPage('special')">🌸 Why You’re Special</div>
+    </div>
+  </div>
+</section>
 
-    <h2>📸 Us</h2>
+<!-- LETTER PAGE -->
+<section id="letter" class="hidden">
+  <div class="card">
+    <h1>💌 For You</h1>
+    <p>
+      Write your personal love message here.  
+      Tell her how much she means to you,  
+      how she makes you feel, and why she’s special 💕
+    </p>
+    <button onclick="goBack()">⬅ Back</button>
+  </div>
+</section>
+
+<!-- VOUCHERS -->
+<section id="voucher" class="hidden">
+  <div class="card">
+    <h1>🎁 Vouchers</h1>
+    <p>Redeem anytime 💗</p>
+    <button onclick="alert('Unlimited hugs 🤍')">🤍 Hug</button>
+    <button onclick="alert('Sweet kisses 💋')">💋 Kiss</button>
+    <button onclick="alert('Cute date 🍰')">🍰 Date</button>
+    <button onclick="alert('Movie night 🎬')">🎬 Movie</button>
+    <br><br>
+    <button onclick="goBack()">⬅ Back</button>
+  </div>
+</section>
+
+<!-- PHOTOS -->
+<section id="photos" class="hidden">
+  <div class="card">
+    <h1>📸 Our Memories</h1>
     <div class="gallery">
       <img src="pic1.jpg">
       <img src="pic2.jpg">
       <img src="pic3.jpg">
     </div>
+    <br>
+    <button onclick="goBack()">⬅ Back</button>
+  </div>
+</section>
 
-    <h2 style="margin-top:30px;">🎁 Choose a Voucher</h2>
-    <div class="vouchers">
-      <div class="voucher" onclick="redeem('Unlimited hugs 🤍')">🤍 Hug</div>
-      <div class="voucher" onclick="redeem('Sweet kisses 💋')">💋 Kiss</div>
-      <div class="voucher" onclick="redeem('Cute date 🍰')">🍰 Date</div>
-      <div class="voucher" onclick="redeem('Movie night 🎬')">🎬 Movie</div>
-    </div>
+<!-- SPECIAL PAGE -->
+<section id="special" class="hidden">
+  <div class="card">
+    <h1>🌸 Why You’re Special</h1>
+    <p>
+      You make me smile without trying.  
+      You’re kind, beautiful, and genuinely amazing.  
+      Being with you just feels right 💕
+    </p>
+    <button onclick="goBack()">⬅ Back</button>
   </div>
 </section>
 
@@ -147,38 +179,43 @@ const texts = [
 ];
 
 function noClicked() {
-  const question = document.getElementById("questionText");
-  const noBtn = document.getElementById("noBtn");
-
+  const q = document.getElementById("questionText");
+  const n = document.getElementById("noBtn");
   if (noCount < texts.length) {
-    question.innerText = texts[noCount];
+    q.innerText = texts[noCount];
     noCount++;
   } else {
-    noBtn.style.position = "absolute";
-    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
-    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+    n.style.position = "absolute";
+    n.style.left = Math.random()*80+"vw";
+    n.style.top = Math.random()*80+"vh";
   }
 }
 
 function yesClicked() {
   document.getElementById("questionPage").classList.add("hidden");
-  document.getElementById("mainPage").classList.remove("hidden");
+  document.getElementById("menuPage").classList.remove("hidden");
   startHearts();
 }
 
-function redeem(text) {
-  alert("Voucher redeemed: " + text);
+function openPage(id) {
+  document.getElementById("menuPage").classList.add("hidden");
+  document.getElementById(id).classList.remove("hidden");
+}
+
+function goBack() {
+  document.querySelectorAll("section").forEach(s => s.classList.add("hidden"));
+  document.getElementById("menuPage").classList.remove("hidden");
 }
 
 function startHearts() {
   setInterval(() => {
-    const heart = document.createElement("div");
-    heart.className = "heart";
-    heart.innerText = "💗";
-    heart.style.left = Math.random() * 100 + "vw";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-  }, 400);
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerText = "💗";
+    h.style.left = Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),6000);
+  },400);
 }
 </script>
 
