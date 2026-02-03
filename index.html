@@ -8,7 +8,10 @@
 body {
   margin: 0;
   font-family: "Comic Sans MS", cursive;
-  background: linear-gradient(135deg, #ffd6e8, #fff0f6);
+  background: linear-gradient(135deg,
+  #ffd6e8,
+  #e0c3fc,
+  #fff1c1);
   color: #ff4d88;
   overflow-x: hidden;
 }
@@ -32,7 +35,7 @@ section {
 }
 
 button {
-  background: #ff4d88;
+  background: linear-gradient(135deg, #ff4d88, #c77dff);
   color: white;
   border: none;
   padding: 15px 30px;
@@ -53,11 +56,18 @@ button {
 }
 
 .menuBox {
-  background: #ffe0ed;
   padding: 30px;
   border-radius: 20px;
   cursor: pointer;
   font-size: 18px;
+  color: #ff4d88;
+}
+
+/* different soft colors */
+.menuBox:nth-child(1) { background: #ffe0ed; } /* pink */
+.menuBox:nth-child(2) { background: #e8dcff; } /* lavender */
+.menuBox:nth-child(3) { background: #fff1c1; } /* peach */
+.menuBox:nth-child(4) { background: #e0f7f4; } /* mint */
 }
 
 /* GALLERY */
