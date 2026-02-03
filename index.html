@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Ms Bunny 💕</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: "Comic Sans MS", cursive;
+  background: linear-gradient(135deg, #ffd6e8, #fff0f6);
+  color: #ff4d88;
+  overflow-x: hidden;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  max-width: 850px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+button {
+  background: #ff4d88;
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  margin: 10px;
+  border-radius: 20px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.hidden {
+  display: none;
+}
+
+/* GALLERY */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px,1fr));
+  gap: 15px;
+}
+
+.gallery img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+/* VOUCHERS */
+.vouchers {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.voucher {
+  background: #ffe0ed;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  width: 150px;
+  cursor: pointer;
+}
+
+/* HEARTS */
+.heart {
+  position: fixed;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 6s linear infinite;
+  color: #ff4d88;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio autoplay loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- QUESTION PAGE -->
+<section id="questionPage">
+  <div class="card">
+    <h1>💖 Hi Ms Bunny 💖</h1>
+    <h2 id="questionText">Will you be my Valentine, Bunny? 🐰💕</h2>
+    <button onclick="yesClicked()">Yes 💘</button>
+    <button id="noBtn" onclick="noClicked()">No 💔</button>
+  </div>
+</section>
+
+<!-- MAIN VALENTINE PAGE -->
+<section id="mainPage" class="hidden">
+  <div class="card">
+    <h1>YAYYY 💕</h1>
+    <p>
+      This page is just a small way to show how special you are to me.
+      You make everything sweeter, softer, and happier 💗
+    </p>
+
+    <h2>📸 Us</h2>
+    <div class="gallery">
+      <img src="pic1.jpg">
+      <img src="pic2.jpg">
+      <img src="pic3.jpg">
+    </div>
+
+    <h2 style="margin-top:30px;">🎁 Choose a Voucher</h2>
+    <div class="vouchers">
+      <div class="voucher" onclick="redeem('Unlimited hugs 🤍')">🤍 Hug</div>
+      <div class="voucher" onclick="redeem('Sweet kisses 💋')">💋 Kiss</div>
+      <div class="voucher" onclick="redeem('Cute date 🍰')">🍰 Date</div>
+      <div class="voucher" onclick="redeem('Movie night 🎬')">🎬 Movie</div>
+    </div>
+  </div>
+</section>
+
+<script>
+let noCount = 0;
+const texts = [
+  "ah why na 🥺",
+  "pretty please 💗",
+  "but we’re so good together 🐰💕"
+];
+
+function noClicked() {
+  const question = document.getElementById("questionText");
+  const noBtn = document.getElementById("noBtn");
+
+  if (noCount < texts.length) {
+    question.innerText = texts[noCount];
+    noCount++;
+  } else {
+    noBtn.style.position = "absolute";
+    noBtn.style.left = Math.random() * (window.innerWidth - 100) + "px";
+    noBtn.style.top = Math.random() * (window.innerHeight - 50) + "px";
+  }
+}
+
+function yesClicked() {
+  document.getElementById("questionPage").classList.add("hidden");
+  document.getElementById("mainPage").classList.remove("hidden");
+  startHearts();
+}
+
+function redeem(text) {
+  alert("Voucher redeemed: " + text);
+}
+
+function startHearts() {
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerText = "💗";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+}
+</script>
+
+</body>
+</html>
